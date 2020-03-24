@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vuejs Basic Event</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="increase(5, $event)">Increase Counter</button>
+        <button v-on:click="counter++">Increase Counter</button>
+        <button v-on:click="resetCounter">Reset Counter</button>
+        <p>{{ counter }}</p>
+        <p>{{ counter > 10 ? 'Greater than 10' : 'Smaller than 10' }}</p>
+        <p v-on:mousemove="updateCoordinates" >
+            Coordinates: x: {{x}}  y: {{y}}
+            <!-- .stop hace la funcion de stopPropagation en js y es un event modifier -->
+            - <span v-on:mousemove.stop="">DEAD SPOT</span>
+        </p>
+        <!-- keyup es un event modifier que nos permite escuchar si una teclas ha sido precionada
+        por ejemplo la tecla enter  -->
+        <input type="text" v-on:keyup.enter="alertMe">
+    </div>
+
+    <script>
+        new Vue ({
+            el: '#app',
+            data:{
+                counter: 0,
+                x: 0,
+                y: 0
+            },
+            methods:{
+                increase: function(aumento, event){
+                    this.counter += aumento;
+                },
+                resetCounter: function(){
+                    this.counter = 0;
+                },
+                updateCoordinates: function(event){
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                alertMe: function(){
+                    alert('Alert');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
